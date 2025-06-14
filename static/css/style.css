@@ -1,0 +1,112 @@
+h1 {
+	color: white;
+}
+html, body {
+	background-color: rgb(80, 80, 80);
+}
+
+
+.navbar {
+	position: sticky;
+	top: 0;
+	width: 100%;
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+	overflow: hidden;
+	background-color: #333;
+}
+.navbar > li {
+	float: right;
+	display: flex;
+	border: 1px solid white;
+	border-radius: 5px;
+}
+.navbar > li a {
+	display: block;
+	color: white;
+	text-align: center;
+	padding: 14px 16px;
+	text-decoration: none;
+}
+.navbar > li a:hover {
+	background-color: black;
+}
+
+
+#scheduleWrapper {
+	display: flex;
+	padding-left: 5%;
+	padding-right: 5%
+}
+#container {
+	display: grid;
+	width: 100%;
+	grid-template-columns: auto auto auto auto auto;
+	overflow: auto;
+	border: 1px solid black;
+}
+#container > div {
+	display: contents;
+}
+#container > div div {
+	flex: 1;
+	cursor: pointer;
+	position: relative;
+	padding: 10px 10px;
+	border-right: 1px solid black;
+	background-color: white;
+	position: relative;
+	height: 60px;
+	overflow: auto;
+}
+#container div .blue {
+	background-color: #ADD8E6;
+}
+
+#container > div div button.delete {
+	background-color: red;
+	color: white;
+	border-radius: 10%;
+}
+#container > div div button.edit {
+	border-radius: 50%;
+	margin-top: 2px;
+}
+#container > div div button.add {
+	background-color: aqua;
+	color: black;
+	border-radius: 10%;
+}
+#container > div div#center {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+#container > div dov#center {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.formWrapper {
+	display: flex;
+	color: white;
+	background-color: black;
+	padding: 10px;
+	padding-right: 10px;
+	padding-bottom: 100px;
+	margin: 10px;
+	width: 25%;
+	border: 1px solid black;
+	flex-direction: column;
+	border-radius: 5px;
+}
+.formWrapper > div {
+	padding: 5px;
+	padding-top: 10px;
+	color: red;
+}
+.formWrapper form button.delete {
+	border-radius: 5px;
+}

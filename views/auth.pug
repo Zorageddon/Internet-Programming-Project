@@ -1,0 +1,66 @@
+doctype
+html
+head
+    title Login/Signup
+    link(href='style.css' rel='stylesheet')
+    script(src='script.js')
+    link(rel='shortcut icon' href='favicon.ico' type='image/x-icon')
+body
+    h1 Login or Signup
+    div.formWrapper
+        form#authForm
+            input#user(type='text' name='user' required placeholder='Username')
+            br
+            input#password(type='password' name='password' required placeholder='Password')
+            br
+            label(for='login') Login
+            input#login(type='radio' name='auth' checked='checked')
+            label(for='signup') Signup
+            input#signup(type='radio' name='auth')
+            br
+            br
+            button(type='Submit') Submit
+        div#loginError(hidden) Login Error!
+        
+script.
+    document.getElementById("authForm").addEventListener('submit', function(event) {
+        event.preventDefault();
+        const name = document.getElementById("user").value;
+        const pass = document.getElementById("password").value;
+        const requestOptions = {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({user: name, password: pass})
+        };
+        let isLogin = true;
+        const radios = document.getElementsByName("auth");
+        if (!radios[0].checked) {
+            isLogin = false;
+        }
+        if (isLogin) {
+            fetch('http://localhost:4131/login', requestOptions)
+                .then(res => {
+                    if (res.redirected) {
+                        location.assign(res.url);
+                    } else {
+                        displayLoginError();
+                    }
+                }).catch(error => console.error('Error: ', error));
+        } else {
+            fetch('http://localhost:4131/signup', requestOptions)
+                .then(response => response.json())
+                .then(async function(data) {
+                    if (data.status == 'success') {
+                        alert('Signup succesful! Please login');
+                        location.reload();
+                    } else {
+                        displayLoginError();
+                    }
+                }).catch(error => console.error('Error: ', error));
+        }
+    }, true);
+    
+    function displayLoginError() {
+        let error = document.getElementById("loginError");
+        error.removeAttribute("hidden");
+    }
