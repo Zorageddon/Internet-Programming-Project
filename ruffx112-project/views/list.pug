@@ -1,0 +1,97 @@
+div
+    div.white#center
+        button.add(type='button' onclick='addTask()') Add Task
+    div.white
+    div.white
+    div.white
+    div.white
+div
+    div.blue
+        strong Task
+    div.blue
+        strong Status
+        br
+        span Filter by: 
+        select#statusFilter(name='statusFilter' onchange='filter()')
+            if selectedStatus == 'None'
+                option(value='None' selected='selected') None
+            else
+                option(value='None') None
+
+            if selectedStatus == 'Todo'
+                option(value='Todo' selected='selected') Todo
+            else
+                option(value='Todo') Todo
+
+            if selectedStatus == 'In Progress'
+                option(value='In Progress' selected='selected') In Progress
+            else
+                option(value='In Progress') In Progress
+
+            if selectedStatus == 'Done'
+                option(value='Done' selected='selected') Done
+            else
+                option(value='Done') Done
+            
+    div.blue
+        strong Description
+    div.blue
+        strong Deadline
+        br
+        span Filter by: 
+        select#deadlineFilter(name='deadlineFilter' onchange='filter()')
+            if selectedDeadline == 'None'
+                option(value='None' selected='selected') None
+            else
+                option(value='None') None
+
+            if selectedDeadline == 'Asc'
+                option(value='Asc' selected='selected') Asc
+            else
+                option(value='Asc') Asc
+
+            if selectedDeadline == 'Desc'
+                option(value='Desc' selected='selected') Desc
+            else
+                option(value='Desc') Desc
+
+            if selectedDeadline == 'Overdue'
+                option(value='Overdue' selected='selected') Overdue 
+            else
+                option(value='Overdue') Overdue
+    div.blue
+div
+    - let white = true;
+    each dict in data
+        - let id=0;
+        each val, key in dict
+            if key == 'id'
+                - id = val;
+            else if key == 'owner'
+            else if key == 'status'
+                if white == true
+                    div.white= val
+                        br
+                        button.edit(type='button' onclick=`cycle(${id})`)
+                            img(src='cycle.png')
+                else
+                    div.blue= val
+                        br
+                        button.edit(type='button' onclick=`cycle(${id})`)
+                            img(src='cycle.png')
+            else
+                if white == true
+                    div.white= val
+                else
+                    div.blue= val
+        if white == true
+            div.white#center
+                button.delete(type='button' onclick=`deleteTask(${id})`) Delete
+        else
+            div.blue#center
+                button.delete(type='button' onclick=`deleteTask(${id})`) Delete
+        if white == true
+            - white = false;
+        else
+            - white = true;
+    script.

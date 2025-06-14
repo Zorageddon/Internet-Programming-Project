@@ -1,0 +1,49 @@
+doctype
+html
+    head
+        title Add
+        link(href='style.css' rel='stylesheet')
+        script(src='script.js')
+        link(rel='shortcut icon' href='favicon.ico' type='image/x-icon')
+    body
+        h1 Add a Task
+        div.formWrapper
+            form#addForm
+                label(for='task') Task
+                br
+                input#task(type='text' name='task')
+                br
+                br
+                label(for='desc') Description
+                br
+                input#desc(type='text' name='desc')
+                br
+                br
+                label(for='deadline') Deadline
+                br
+                input#deadline(type='date' name='deadline')
+                br
+                br
+                button(type='Submit') Submit
+
+    script.
+        document.getElementById("addForm").addEventListener('submit', function(event) {
+            event.preventDefault();
+            const t = document.getElementById("task").value;
+            const desc = document.getElementById("desc").value;
+            const dead = document.getElementById("deadline").value;
+            const own = '!{user}';
+            const requestOptions = {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({task: t, owner: own, description: desc, deadline: dead})
+            };
+            fetch('http://localhost:4131/add', requestOptions)
+                .then(res => {
+                    if (res.ok) {
+                        location.assign(res.url);
+                    } else {
+                        console.err('redirect failed');
+                    }
+                });
+        }, true);
